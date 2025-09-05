@@ -1,11 +1,25 @@
-<ul class="nav nav-tabs justify-content-center my-5">
-  <li class="nav-item">
-    <a class="nav-link" href="#">All</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Light</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Dark</a>
-  </li>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <ul class="nav nav-underline justify-content-center my-5">
+        <li class="nav-item" *ngFor="let side of sides">
+          <a
+            class="nav-link"
+            [ngClass]="{ active: selectedTab === side }"
+            (click)="onSelectedTab(side)"
+            >{{ side.toUpperCase() }}</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-list
+        [characters]="getCharacters()"
+        [sides]="sides.slice(1)"
+        (sideButtonClicked)="onSideButtonClicked($event)"
+      ></app-list>
+    </div>
+  </div>
+</div>

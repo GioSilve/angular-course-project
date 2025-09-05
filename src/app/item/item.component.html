@@ -1,9 +1,23 @@
 <a href="#" class="list-group-item list-group-item-action">
   <div class="d-flex w-100 justify-content-between align-items-center">
-    <h5 class="mb-1">Name here</h5>
-    <div>
-      <button class="btn btn-primary mx-3">Light</button>
-      <button class="btn btn-danger">Dark</button>
+    <h5 class="mb-1">{{ character.name }}</h5>
+    <div class="btn-group" role="group" id="btnradiogroup-{{ character.id }}">
+      <div *ngFor="let side of sides">
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio-{{ character.id }}-{{ side }}"
+          id="btnradio-{{ character.id }}-{{ side }}"
+          autocomplete="off"
+          [checked]="character.side === side"
+          (click)="onSideButtonClicked({ id: character.id, side: side })"
+        />
+        <label
+          class="btn btn-outline-{{ getButtonColor(side) }} mx-1"
+          for="btnradio-{{ character.id }}-{{ side }}"
+          >{{ side.toUpperCase() }}</label
+        >
+      </div>
     </div>
   </div>
 </a>

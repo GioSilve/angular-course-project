@@ -1,3 +1,8 @@
-<div class="list-group" *ngFor="let i of [1, 2, 3, 4, 5]">
-  <app-item></app-item>
+<div class="list-group">
+  <app-item
+    *ngFor="let character of characters"
+    [character]="character"
+    [sides]="sides"
+    (sideButtonClicked)="onSideButtonClicked($event)"
+  ></app-item>
 </div>
