@@ -5,8 +5,8 @@
         <li class="nav-item" *ngFor="let side of sides">
           <a
             class="nav-link"
-            [ngClass]="{ active: selectedTab === side }"
-            (click)="onSelectedTab(side)"
+            [ngClass]="{ active: getSelectedTab() === side }"
+            (click)="setSelectedTab(side)"
             >{{ side.toUpperCase() }}</a
           >
         </li>
@@ -18,7 +18,6 @@
       <app-list
         [characters]="getCharacters()"
         [sides]="sides.slice(1)"
-        (sideButtonClicked)="onSideButtonClicked($event)"
       ></app-list>
     </div>
   </div>

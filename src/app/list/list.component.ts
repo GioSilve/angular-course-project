@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-list',
@@ -6,14 +6,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent {
-  @Input() characters: { id: number; name: string; side: string }[] = [];
-  @Input() sides: string[] = [];
-  @Output() sideButtonClicked = new EventEmitter<{
-    id: number;
-    side: string;
-  }>();
+  @Input() characters: { id: number; name: string; side: string }[];
+  @Input() sides: string[];
 
-  onSideButtonClicked(characterSide: { id: number; side: string }) {
-    this.sideButtonClicked.emit(characterSide);
+  constructor() {
+    this.characters = [];
+    this.sides = [];
   }
 }

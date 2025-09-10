@@ -10,7 +10,13 @@
           id="btnradio-{{ character.id }}-{{ side }}"
           autocomplete="off"
           [checked]="character.side === side"
-          (click)="onSideButtonClicked({ id: character.id, side: side })"
+          (click)="
+            onSideButtonClicked({
+              id: character.id,
+              name: character.name,
+              side: side
+            })
+          "
         />
         <label
           class="btn btn-outline-{{ getButtonColor(side) }} mx-1"

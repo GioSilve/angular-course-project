@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { StarWarsService } from '../star-wars.service';
 
 @Component({
   selector: 'app-item',
@@ -6,19 +7,22 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./item.component.scss'],
 })
 export class ItemComponent {
-  @Input() character: { id: number; name: string; side: string } = {
-    id: 0,
-    name: '',
-    side: '',
-  };
-  @Input() sides: string[] = [];
-  @Output() sideButtonClicked = new EventEmitter<{
-    id: number;
-    side: string;
-  }>();
+  swService: StarWarsService;
+  @Input() character: { id: number; name: string; side: string };
+  @Input() sides: string[];
 
-  onSideButtonClicked(characterSide: { id: number; side: string }) {
-    this.sideButtonClicked.emit(characterSide);
+  constructor(swService: StarWarsService) {
+    this.swService = swService;
+    this.character = { id: 0, name: '', side: '' };
+    this.sides = [];
+  }
+
+  onSideButtonClicked(characterSide: {
+    id: number;
+    name: string;
+    side: string;
+  }) {
+    this.swService.onSideButtonClicked(characterSide);
   }
 
   getButtonColor(side: string) {

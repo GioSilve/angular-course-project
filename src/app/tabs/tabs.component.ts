@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StarWarsService } from '../star-wars.service';
 
 @Component({
   selector: 'app-tabs',
@@ -6,40 +7,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./tabs.component.scss'],
 })
 export class TabsComponent {
-  characters = [
-    { id: 1, name: 'Luke Skywalker', side: '' },
-    { id: 2, name: 'Darth Vader', side: '' },
-    { id: 3, name: 'Han Solo', side: '' },
-    { id: 4, name: 'Leia Organa', side: '' },
-    { id: 5, name: 'Obi-Wan Kenobi', side: '' },
-    { id: 6, name: 'Yoda', side: '' },
-  ];
-  sides = ['all', 'light', 'dark'];
-  selectedTab = this.sides[0];
+  swService: StarWarsService;
+  sides: string[];
+
+  constructor(swService: StarWarsService) {
+    this.swService = swService;
+    this.sides = this.swService.getSides();
+  }
 
   getCharacters() {
-    if (this.selectedTab === this.sides[0]) {
-      return this.characters;
-    }
-    return this.characters.filter(
-      (character) => character.side === this.selectedTab
-    );
+    return this.swService.getCharacters();
   }
 
-  onSelectedTab(side: string) {
-    this.selectedTab = side;
+  getSelectedTab() {
+    return this.swService.getSelectedTab();
   }
 
-  onSideButtonClicked(characterSide: { id: number; side: string }) {
-    this.characters = this.characters.map((character) => {
-      if (character.id === characterSide.id) {
-        return {
-          id: character.id,
-          name: character.name,
-          side: characterSide.side,
-        };
-      }
-      return character;
-    });
+  setSelectedTab(side: string) {
+    this.swService.setSelectedTab(side);
   }
 }
