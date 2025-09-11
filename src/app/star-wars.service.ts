@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LogService } from './log.service';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class StarWarsService {
@@ -11,17 +12,18 @@ export class StarWarsService {
   private sides = ['all', 'light', 'dark'];
   private selectedTab = this.sides[0];
   private logService: LogService;
+  charactersChanged = new Subject<void>();
 
   constructor(logService: LogService) {
     this.logService = logService;
   }
 
-  getCharacters() {
-    if (this.selectedTab === this.sides[0]) {
-      return this.characters;
+  getCharacters(selectedSide: string) {
+    if (selectedSide === this.sides[0]) {
+      return this.characters.slice();
     }
     return this.characters.filter(
-      (character) => character.side === this.selectedTab
+      (character) => character.side === selectedSide
     );
   }
 
@@ -52,6 +54,7 @@ export class StarWarsService {
       }
       return character;
     });
+    this.charactersChanged.next();
     this.logService.writeLog(
       `Changed side of ${characterSide.name} to ${characterSide.side}`
     );

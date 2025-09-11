@@ -14,16 +14,4 @@ export class TabsComponent {
     this.swService = swService;
     this.sides = this.swService.getSides();
   }
-
-  getCharacters() {
-    return this.swService.getCharacters();
-  }
-
-  getSelectedTab() {
-    return this.swService.getSelectedTab();
-  }
-
-  setSelectedTab(side: string) {
-    this.swService.setSelectedTab(side);
-  }
 }

@@ -2,23 +2,21 @@
   <div class="row mb-4">
     <div class="col">
       <ul class="nav nav-underline justify-content-center">
-        <li class="nav-item" *ngFor="let side of sides">
-          <a
-            class="nav-link"
-            [ngClass]="{ active: getSelectedTab() === side }"
-            (click)="setSelectedTab(side)"
-            >{{ side.toUpperCase() }}</a
-          >
+        <li
+          class="nav-item"
+          *ngFor="let side of sides"
+          routerLinkActive="active"
+        >
+          <a class="nav-link" [routerLink]="'/characters/' + side">{{
+            side.toUpperCase()
+          }}</a>
         </li>
       </ul>
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <app-list
-        [characters]="getCharacters()"
-        [sides]="sides.slice(1)"
-      ></app-list>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
